@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apoyo Educativo</title>
+</head>
+<body>
+
+    <h1>Bienvenidos a Apoyo Educativo</h1>
+    <p>Este espacio es perfecto para ti.</p>
+
+    <h2>Formulario de bienvenida</h2>
+
+    <form id="formulario">
+        <label for="nombre">Escribe tu nombre:</label>
+        <input type="text" id="nombre" required>
+        <button type="submit">Enviar saludo</button>
+    </form>
+
+    <p id="respuesta"></p>
+
+    <script>
+        document.getElementById("formulario")
+            .addEventListener("submit", async function(event) {
+                event.preventDefault();
+
+                const nombre =
+                    document.getElementById("nombre").value;
+
+                const respuesta = await fetch(
+                    "/api/bienvenida?nombre=" +
+                    encodeURIComponent(nombre)
+                );
+
+                const mensaje = await respuesta.text();
+
+                document.getElementById("respuesta").textContent =
+                    mensaje;
+            });
+    </script>
+
+</body>
+</html>
