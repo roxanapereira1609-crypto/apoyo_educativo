@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Planificación de Actividades - Apoyo Educativo</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .contenedor {
+            max-width: 550px;
+            margin: auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #243b53;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: #627d98;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: #b02a37;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .boton {
+            display: block;
+            width: 100%;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 25px;
+        }
+
+        .boton:hover {
+            background-color: #1d4ed8;
+        }
+
+        .volver {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <h1 th:text="${actividad.id == null}
+            ? 'Registrar actividad'
+            : 'Editar actividad'">
+            Registrar actividad
+        </h1>
+
+        <p class="subtitulo">
+            Sistema de Apoyo Educativo
+        </p>
+
+        <form th:object="${actividad}"
+              th:action="${actividad.id == null}
+                ? @{/actividades}
+                : @{/actividades/actualizar/{id}(id=${actividad.id})}"
+              method="post"
+              novalidate>
+
+            <div class="error"
+                 th:if="${#fields.hasAnyErrors()}">
+                Revisa los campos señalados antes de continuar.
+            </div>
+
+            <label for="nombreActividad">
+                Nombre de la actividad
+            </label>
+
+            <input type="text"
+                   id="nombreActividad"
+                   th:field="*{nombreActividad}"
+                   placeholder="Escribe el nombre de la actividad">
+
+            <div class="error"
+                 th:if="${#fields.hasErrors('nombreActividad')}"
+                 th:errors="*{nombreActividad}">
+            </div>
+
+            <label for="fechaProgramada">
+                Fecha programada
+            </label>
+
+            <input type="date"
+                   id="fechaProgramada"
+                   th:field="*{fechaProgramada}">
+
+            <div class="error"
+                 th:if="${#fields.hasErrors('fechaProgramada')}"
+                 th:errors="*{fechaProgramada}">
+            </div>
+
+            <label for="docenteResponsable">
+                Docente responsable
+            </label>
+
+            <input type="text"
+                   id="docenteResponsable"
+                   th:field="*{docenteResponsable}"
+                   placeholder="Escribe el nombre del docente">
+
+            <div class="error"
+                 th:if="${#fields.hasErrors('docenteResponsable')}"
+                 th:errors="*{docenteResponsable}">
+            </div>
+
+            <label for="estado">
+                Estado de la actividad
+            </label>
+
+            <select id="estado" th:field="*{estado}">
+                <option value="">Selecciona un estado</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="En proceso">En proceso</option>
+                <option value="Finalizada">Finalizada</option>
+            </select>
+
+            <div class="error"
+                 th:if="${#fields.hasErrors('estado')}"
+                 th:errors="*{estado}">
+            </div>
+
+            <button type="submit"
+                    class="boton"
+                    th:text="${actividad.id == null}
+                        ? 'Guardar actividad'
+                        : 'Guardar cambios'">
+                Guardar actividad
+            </button>
+
+        </form>
+
+        <a th:href="@{/actividades}" class="volver">
+            Volver a la lista de actividades
+        </a>
+
+    </div>
+
+</body>
+</html>
