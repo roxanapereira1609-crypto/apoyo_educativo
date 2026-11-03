@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Asistencia Docente - Apoyo Educativo</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .contenedor {
+            max-width: 550px;
+            margin: auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #243b53;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: #627d98;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: #b02a37;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .boton {
+            display: block;
+            width: 100%;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 25px;
+        }
+
+        .boton:hover {
+            background-color: #1d4ed8;
+        }
+
+        .volver {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <h1 th:text="${asistencia.id == null}
+            ? 'Registrar asistencia'
+            : 'Editar asistencia'">
+            Registrar asistencia
+        </h1>
+
+        <p class="subtitulo">
+            Sistema de Apoyo Educativo
+        </p>
+
+        <form th:object="${asistencia}"
+              th:action="${asistencia.id == null}
+                ? @{/asistencias}
+                : @{/asistencias/actualizar/{id}(id=${asistencia.id})}"
+              method="post"
+              novalidate>
+
+            <div th:if="${#fields.hasAnyErrors()}" class="error">
+                Revisa los campos señalados antes de continuar.
+            </div>
+
+            <label for="nombreDocente">
+                Nombre del docente
+            </label>
+
+            <input type="text"
+                   id="nombreDocente"
+                   th:field="*{nombreDocente}"
+                   placeholder="Escribe el nombre del docente">
+
+            <div class="error"
+                 th:if="${#fields.hasErrors('nombreDocente')}"
+                 th:errors="*{nombreDocente}">
+            </div>
+
+            <label for="fecha">
+                Fecha de asistencia
+            </label>
+
+            <input type="date"
+                   id="fecha"
+                   th:field="*{fecha}">
+
+            <div class="error"
+                 th:if="${#fields.hasErrors('fecha')}"
+                 th:errors="*{fecha}">
+            </div>
+
+            <label for="horaIngreso">
+                Hora de ingreso
+            </label>
+
+            <input type="time"
+                   id="horaIngreso"
+                   th:field="*{horaIngreso}">
+
+            <div class="error"
+                 th:if="${#fields.hasErrors('horaIngreso')}"
+                 th:errors="*{horaIngreso}">
+            </div>
+
+            <button type="submit"
+                    class="boton"
+                    th:text="${asistencia.id == null}
+                        ? 'Guardar asistencia'
+                        : 'Guardar cambios'">
+                Guardar asistencia
+            </button>
+
+        </form>
+
+        <a th:href="@{/asistencias}" class="volver">
+            Volver a la lista de asistencias
+        </a>
+
+    </div>
+
+</body>
+</html>

@@ -1,32 +1,52 @@
+
 # Apoyo Educativo
 
-## Descripción
+## Descripción del proyecto
 
-Apoyo Educativo es un proyecto orientado a una entidad sin fines de lucro que busca brindar apoyo educativo a niños y jóvenes. Su propósito es facilitar la organización de información y recursos relacionados con las actividades educativas que ofrece la entidad.
+Apoyo Educativo es una aplicación web desarrollada con el propósito de ofrecer un espacio digital de bienvenida y apoyo para los estudiantes.
 
-## Funcionalidades planeadas
+Actualmente, el proyecto cuenta con un formulario que permite ingresar el nombre de un visitante y recibir un saludo personalizado.
 
-- Registro y organización de actividades educativas.
-- Seguimiento de las actividades realizadas.
+## Tecnologías utilizadas
 
-## Tecnologías
+- Java 21
+- Spring Boot
+- Maven
+- HTML5
+- JavaScript
+- Git y GitHub
+- Visual Studio Code
 
-Para el desarrollo del proyecto se planea utilizar:
+## Organización del proyecto
 
-- HTML
-- CSS
-- Java
-- Git
-- GitHub
+La aplicación está organizada en tres capas:
 
-## Cómo clonar y ejecutar el proyecto
+- **Controller:** recibe las solicitudes realizadas desde el navegador.
+- **Service:** contiene la lógica para generar los mensajes.
+- **Model:** representa los datos de los visitantes.
 
-Para obtener una copia del proyecto se puede clonar el repositorio desde GitHub.
+Esta organización permite mantener el código ordenado y facilita futuras mejoras.
 
-Una vez descargado, se podrán abrir los archivos del proyecto utilizando un editor de código compatible con las tecnologías utilizadas.
+## Rutas disponibles
 
-El proyecto se encuentra actualmente en etapa de desarrollo, por lo que sus funcionalidades se irán incorporando progresivamente.
+- `/api/saludo`: muestra un mensaje general de bienvenida.
+- `/api/bienvenida?nombre=Roxana`: muestra un saludo personalizado.
 
-## Autor
+## Cómo ejecutar el proyecto
+
+1. Abrir la carpeta del proyecto en Visual Studio Code.
+2. Abrir una terminal en la carpeta que contiene `pom.xml`.
+3. Ejecutar el comando:
+
+   `.\mvnw.cmd spring-boot:run`
+
+4. Esperar a que Spring Boot inicie correctamente.
+5. Abrir `http://localhost:8080` en el navegador.
+
+## Estado actual
+
+El proyecto cuenta con un controlador REST, una capa de servicio, un modelo de visitante y un formulario web que utiliza JavaScript y `fetch()` para mostrar mensajes sin recargar la página.
+
+## Autora
 
 Roxana Adelaida Pereira Delgado
