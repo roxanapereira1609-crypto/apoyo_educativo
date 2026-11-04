@@ -42,6 +42,20 @@
             margin: 20px 0;
         }
 
+        .leyenda {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .etiqueta {
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
         .tabla-contenedor {
             overflow-x: auto;
         }
@@ -64,8 +78,28 @@
             border-bottom: 1px solid #ddd;
         }
 
-        tr:hover {
-            background-color: #f5f8fc;
+        .pendiente {
+            background-color: #ffdfb5;
+        }
+
+        .en-proceso {
+            background-color: #fff3ad;
+        }
+
+        .finalizada {
+            background-color: #ffd6d6;
+        }
+
+        .pendiente:hover {
+            background-color: #ffd19a;
+        }
+
+        .en-proceso:hover {
+            background-color: #ffeb87;
+        }
+
+        .finalizada:hover {
+            background-color: #ffc2c2;
         }
 
         .boton {
@@ -146,6 +180,12 @@
             + Registrar nueva actividad
         </a>
 
+        <div class="leyenda">
+            <span class="etiqueta pendiente">Pendiente</span>
+            <span class="etiqueta en-proceso">En proceso</span>
+            <span class="etiqueta finalizada">Finalizada</span>
+        </div>
+
         <div class="tabla-contenedor">
 
             <table>
@@ -161,7 +201,8 @@
 
                 <tbody>
 
-                    <tr th:each="actividad : ${actividades}">
+                    <tr th:each="actividad : ${actividades}"
+                        th:classappend="${actividad.estado != null and #strings.equalsIgnoreCase(actividad.estado, 'Pendiente')} ? 'pendiente' : (${actividad.estado != null and #strings.equalsIgnoreCase(actividad.estado, 'En proceso')} ? 'en-proceso' : (${actividad.estado != null and (#strings.equalsIgnoreCase(actividad.estado, 'Finalizada') or #strings.equalsIgnoreCase(actividad.estado, 'Finalizado'))} ? 'finalizada' : ''))">
 
                         <td th:text="${actividad.nombreActividad}">
                             Nombre de la actividad
